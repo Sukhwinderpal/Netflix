@@ -39,27 +39,7 @@ const HomeScreen = ({navigation}) => {
   const handleMoviePress = movie => {
     navigation.navigate('Detail', {movie});
   };
-  
 
-  // console.log(movies)
-
-  const handleSearch = text => {
-    const capitalizeWords = input => {
-      return input
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-    };
-
-    const capitalizedText = capitalizeWords(text);
-
-    // Update the search text and filter the movies
-    setSearchedText(capitalizedText);
-    const filteredSearch = movies.filter(item =>
-      item.show.name.includes(capitalizedText),
-    );
-    setfiltered(filteredSearch);
-  };
 
   const renderMovie = ({item}) => {
     const {show} = item;
@@ -97,30 +77,28 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-     <Header/>
-
-      <View
+      <Header />
+      <TouchableOpacity
         style={{
-          height: 50,
-          width: '90%',
-          borderRadius: 8,
-          borderColor: 'gray',
-          borderWidth: 1,
-          margin: 20,
-        }}>
-        <TextInput
-          placeholder="Search movies..."
-          placeholderTextColor={'#777'}
-          value={searchedText}
-          onChangeText={text => handleSearch(text)}
+          fontSize: 14,
+          color: '#555',
+          marginHorizontal: 10,
+        }}
+        onPress={() => navigation.navigate('SearchTab')}>
+        <View
           style={{
-            fontSize: 14,
-            color: '#555',
-            marginHorizontal: 10,
-           
-          }}
-        />
-      </View>
+            height: 50,
+            width: '90%',
+            borderRadius: 8,
+            borderColor: 'gray',
+            borderWidth: 1,
+            margin: 20,
+          }}>
+          <Text style={{color: '#777', marginTop: 9, marginLeft: 9}}>
+            Search movies...
+          </Text>
+        </View>
+      </TouchableOpacity>
       {searchedText != '' && filtered != null ? (
         <FlatList
           data={filtered}
@@ -147,7 +125,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'black'
+    backgroundColor: 'black',
   },
   list: {
     padding: 10,
@@ -163,7 +141,7 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: 150,
     height: 150,
-    color:'white'
+    color: 'white',
   },
   info: {
     flex: 1,
@@ -173,13 +151,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     // fontWeight: 'bold',
     marginBottom: 5,
-    color:'white'
+    color: 'white',
   },
-  language:{
+  language: {
     fontSize: 14,
     // fontWeight: 'bold',
     marginBottom: 5,
-    color:'lightgray'
+    color: 'lightgray',
   },
   summary: {
     fontSize: 14,
